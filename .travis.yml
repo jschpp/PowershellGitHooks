@@ -1,5 +1,7 @@
 ﻿sudo: required
 
+language: csharp
+
 before_install:
   - curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
   - sudo curl -o /etc/apt/sources.list.d/microsoft.list https://packages.microsoft.com/config/ubuntu/14.04/prod.list
@@ -7,4 +9,4 @@ before_install:
   - sudo apt-get install -y powershell
 
 script:
-  - pwsh -f "${env:TRAVIS_BUILD_DIR}/build.ps1 analyze"
+  - pwsh -File "${env:TRAVIS_BUILD_DIR}/build.ps1" "analyze"
