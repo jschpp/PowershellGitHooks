@@ -104,7 +104,7 @@ function Install-GitHook {
         [ValidateScript( {_testHookName -HookName $_})]
         [string]$PSHookName,
         [parameter(Mandatory = $true, Position = 1)]
-        [ValidateScript( {Test-Path -Path $_})]
+        [ValidateScript( {(Test-Path -Path $_) -and (Test-Path $(Join-Path $_ ".git"))})]
         [string]$RepositoryPath,
         [parameter(Mandatory = $true, Position = 2)]
         [ValidateSet("applypatch-msg", "pre-applypatch", "post-applypatch",
