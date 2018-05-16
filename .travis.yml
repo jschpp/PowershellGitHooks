@@ -19,5 +19,8 @@ matrix:
     #     - brew cask install powershell
   fast_finish: true
 
+install:
+  - pwsh -f "${TRAVIS_BUILD_DIR}/install-dependencies.ps1"
+
 script:
   - pwsh -File "${TRAVIS_BUILD_DIR}/build.ps1" "analyze"
