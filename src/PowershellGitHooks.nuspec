@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>PowershellGitHooks</id>
-    <version>See src/PowershellGitHooks.psd1</version>
+    <version>$Version$</version>
     <authors>schoeppj</authors>
     <owners>schoeppj</owners>
     <licenseUrl>https://github.com/jschpp/PowershellGitHooks/blob/master/LICENSE</licenseUrl>

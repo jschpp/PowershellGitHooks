@@ -41,21 +41,16 @@ function Invoke-BuildProcess {
         [string]$Version = "0.0.0"
     )
 
-    # Remove real config
-    Remove-Item -Path $(Join-Path $Path "conf/idmrpc.xml") -ErrorAction SilentlyContinue
-    if (Test-Path -Path $(Join-Path $Path "conf/idmrpc.xml")) {
-        EXIT 1
-    }
-
     # nuget
-    $specpath = Join-Path $PSScriptRoot "psident.nuspec"
+    $specpath = Join-Path $Path "PowershellGitHooks.nuspec"
     $outpath = Join-Path $PSScriptRoot "bin"
-    $command = "'C:\Program Files (x86)\nuget\NuGet.exe' pack `"$specpath`" -Basepath `"$Path`" -outputdirectory `"$outpath`" -Version `"$Version`""
+    $command = "& `'C:\Program Files (x86)\nuget\NuGet.exe`' pack `"$specpath`" -Basepath `"$Path`" -outputdirectory `"$outpath`" -Version `"$Version`""
+    Write-Output $command
     Invoke-Expression $command
 
     # Test if package file exists
     if (! $(Test-Path $(Join-Path $outpath "Uni-Frankfurt.PSIdent.$Version.nupkg"))) {
-        EXIT 1
+        Write-Error "Build was unsuccessful!" -ErrorAction Stop
     }
 }
 
