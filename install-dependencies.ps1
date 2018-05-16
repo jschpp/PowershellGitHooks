@@ -18,30 +18,15 @@ Get-PackageProvider -Name $providerNames |
     Format-Table -AutoSize -Property 'Name', 'Version'
 
 Write-Host -Object "Installing modules:" -ForegroundColor 'Yellow'
-$moduleNames = 'Pester', 'Coveralls'
+$moduleNames = 'Pester', 'PSScriptAnalyzer'
 foreach ( $moduleName in $moduleNames ) {
-    if ( $env:APPVEYOR_BUILD_WORKER_IMAGE -eq 'Visual Studio 2015' ) {
-        Install-Module -Name $moduleName -Scope 'CurrentUser' -Repository 'PSGallery' -Force -Confirm:$false |
-            Out-Null
-    }
-    else {
-        Install-Module -Name $moduleName -Scope 'CurrentUser' -Repository 'PSGallery' -SkipPublisherCheck -Force -Confirm:$false |
-            Out-Null
-    }
-
+    Install-Module -Name $moduleName -Scope 'CurrentUser' -Repository 'PSGallery' -SkipPublisherCheck -Force -Confirm:$false |`
+        Out-Null
     Import-Module -Name $moduleName
 }
 Remove-Variable -Name 'moduleName'
 
 Get-Module -Name $moduleNames |
     Format-Table -AutoSize -Property 'Name', 'Version'
-
-Write-Host -Object 'NodeJS version: ' -ForegroundColor 'Yellow' -NoNewline
-& node --version
-Write-Host -Object 'NodeJS Package Manager (npm) version: ' -ForegroundColor 'Yellow' -NoNewline
-& npm --version
-
-Write-Host -Object "`nInstalling npm packages: " -ForegroundColor 'Yellow'
-& npm install --global sinon@1 markdown-spellcheck 2> ( [System.IO.Path]::GetTempFileName() )
 
 Write-Host -Object ''
