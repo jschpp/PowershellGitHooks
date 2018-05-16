@@ -8,6 +8,9 @@
     After that it parses the ScriptInfo of the hooks and extracts the Description of the Hook.
     Returns a list of CustomObjects containing the Description, LiteralPath and Name of the Hook.
 
+    .PARAMETER Name
+    Name of the hook
+
     .INPUTS
     None. You cannot pipe objects to Get-PSHook.
 
@@ -24,6 +27,11 @@
     https://github.com/jschpp/PowershellGitHooks
 
     #>
+    param (
+        [parameter(Mandatory = $false, Position = 0)]
+        [string]$Name
+    )
+
     $hook = @{
         Name        = ""
         LiteralPath = ""
@@ -35,6 +43,9 @@
         $hook.Name = $file.BaseName
         $hook.LiteralPath = $file.FullName
         $hook.Description = $info.Description
+        if ($Name -eq $hook.Name) {
+            return $(New-Object -TypeName PSObject -Property $hook)
+        }
         $result += $(New-Object -TypeName PSObject -Property $hook)
     }
     return $result
