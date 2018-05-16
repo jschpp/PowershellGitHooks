@@ -1,4 +1,27 @@
-﻿# Parameter
+﻿<#PSScriptInfo
+
+.VERSION 1.1
+
+.GUID 351b3edb-00d3-4907-a3d6-8ca9336e63bd
+
+.AUTHOR Johannes Schöpp
+
+.LICENSEURI https://github.com/jschpp/PowershellGitHooks/blob/master/LICENSE
+
+.PROJECTURI https://github.com/jschpp/PowershellGitHooks/
+
+.RELEASENOTES https://github.com/jschpp/PowershellGitHooks/releases
+
+#>
+
+<#
+
+.DESCRIPTION
+ Tests Powershell script files for signature
+
+#>
+
+# Parameter
 $RequireSignature = $true # Every powershell scripts needs a signature
 $CheckForSigErrors = $true # Check powershell scripts for signature errors
 $RequireTimestamp = $true # Does the powershell script need a timestamp signature
