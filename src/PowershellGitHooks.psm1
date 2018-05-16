@@ -122,6 +122,30 @@ function Install-GitHook {
         [parameter(Mandatory = $false)]
         [switch]$Append
     )
+    $PShook = Get-PSHook -Name $PSHookName
+    $gitHookPath = Join-Path -Path $RepositoryPath -ChildPath ".git\hooks\$GitHook"
+    $HookScriptPath = Join-Path -Path $RepositoryPath -ChildPath ".git\hooks\$(Split-Path -Path $PShook.LiteralPath -Leaf)"
+    $relativePSHookPath = ".git\hooks\$(Split-Path -Path $PShook.LiteralPath -Leaf)"
+
+    If ($PSCmdlet.ShouldProcess("Check for existing hook")) {
+        $hookExists = Test-Path -Path $gitHookPath
+        if ($hookExists -and $NoClobber -and -not $Append) {
+            Write-Error -Message "Hook already exists please use another hook, backup the existing one or use Append add this hook to the existing one" -ErrorAction Stop
+        }
+    }
+    If ($PSCmdlet.ShouldProcess("Create Powershell hook script")) {
+        if ($NoClobber -and (Test-Path $HookScriptPath)) {
+            Write-Error -Message "Hook Script already exists. File: $HookScriptPath" -ErrorAction Stop
+        }
+        Copy-Item -Path $PShook.LiteralPath -Destination $HookScriptPath
+    }
+    If ($PSCmdlet.ShouldProcess("Create hook")) {
+        if (!$hookExists) {
+            "#!/bin/sh" | Out-File -FilePath $gitHookPath -Encoding utf8 -Append:$Append -NoClobber:$NoClobber
+        }
+        "$(Join-Path -Path $PsHome -ChildPath "powershell.exe" -Resolve) -ExecutionPolicy RemoteSigned -File `'$relativePSHookPath`'" |`
+            Out-File -FilePath $gitHookPath -Encoding utf8 -Append:$Append -NoClobber:$NoClobber
+    }
 }
 
 Export-ModuleMember -Function Get-PSHook, Install-GitHook
