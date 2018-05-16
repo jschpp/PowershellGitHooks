@@ -9,7 +9,7 @@ function Invoke-AnalyzeScript {
     param(
         [string]$Path = "$PSScriptRoot\src\"
     )
-    $result = Invoke-ScriptAnalyzer -Path $Path -Recurse -Severity "Error", "Warning"
+    $result = Invoke-ScriptAnalyzer -Path $Path -Recurse -Severity "Error", "Warning" -ErrorAction Stop
     if ($result) {
         $result | Format-Table
         Write-Error -Message "$($result.SuggestedCorrections.Count) linting errors or warnings were found. The build cannot continue."
@@ -69,18 +69,23 @@ foreach ($task in $Tasks) {
         Write-Output "Error in Module Manifest"
         EXIT 1
     }
-    switch ($task) {
-        "analyze" {
-            Write-Output "Analyzing Scripts..."
-            Invoke-AnalyzeScript
+    try {
+        switch ($task) {
+            "analyze" {
+                Write-Output "Analyzing Scripts..."
+                Invoke-AnalyzeScript
+            }
+            "test" {
+                Write-Output "Running Tests..."
+                Invoke-Test
+            }
+            "release" {
+                Write-Output "Building Package..."
+                Invoke-BuildProcess -Version $module.Version
+            }
         }
-        "test" {
-            Write-Output "Running Tests..."
-            Invoke-Test
-        }
-        "release" {
-            Write-Output "Building Package..."
-            Invoke-BuildProcess -Version $module.Version
-        }
+    }
+    catch {
+        EXIT 1
     }
 }
