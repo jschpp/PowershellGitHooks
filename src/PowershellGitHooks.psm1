@@ -91,6 +91,9 @@ function Install-GitHook {
     .PARAMETER NoClobber
     Don't overwrite the existing hook
 
+    .PARAMETER Append
+    Append the hook to an existing hook
+
     .EXAMPLE
     C:\PS> Install-GitHook -PSHookName "Test-Signature" -RepositoryPath "C:\MyAwesomeRepo" -Githook "pre-commit"
 
@@ -115,7 +118,9 @@ function Install-GitHook {
             "sendemail-validate", "fsmonitor-watchman")] # see https://git-scm.com/docs/githooks
         [string]$GitHook,
         [parameter(Mandatory = $false)]
-        [switch]$NoClobber
+        [switch]$NoClobber,
+        [parameter(Mandatory = $false)]
+        [switch]$Append
     )
 }
 
