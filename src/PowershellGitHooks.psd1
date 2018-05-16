@@ -24,16 +24,16 @@
     Author            = 'Johannes Schöpp'
 
     # Unternehmen oder Hersteller dieses Moduls
-    CompanyName       = 'Unbekannt'
+    # CompanyName       = 'Unbekannt'
 
     # Urheberrechtserklärung für dieses Modul
-    Copyright         = '(c) 2018 schoeppj. Alle Rechte vorbehalten.'
+    Copyright         = '(c) 2018 Johannes Schöpp. Alle Rechte vorbehalten.'
 
     # Beschreibung der von diesem Modul bereitgestellten Funktionen
     # Description = ''
 
     # Die für dieses Modul mindestens erforderliche Version des Windows PowerShell-Moduls
-    # PowerShellVersion = ''
+    PowerShellVersion = '3.0'
 
     # Der Name des für dieses Modul erforderlichen Windows PowerShell-Hosts
     # PowerShellHostName = ''
@@ -69,7 +69,7 @@
     # NestedModules = @()
 
     # Aus diesem Modul zu exportierende Funktionen. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und löschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Funktionen vorhanden sind.
-    FunctionsToExport = @("Get-Hooks", "Install-GitHook")
+    FunctionsToExport = @("Get-PSHook", "Install-GitHook")
 
     # Aus diesem Modul zu exportierende Cmdlets. Um optimale Leistung zu erzielen, verwenden Sie keine Platzhalter und löschen den Eintrag nicht. Verwenden Sie ein leeres Array, wenn keine zu exportierenden Cmdlets vorhanden sind.
     CmdletsToExport   = @()
