@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>PowershellGitHooks</id>
+    <version>See src/PowershellGitHooks.psd1</version>
+    <authors>schoeppj</authors>
+    <owners>schoeppj</owners>
+    <licenseUrl>https://github.com/jschpp/PowershellGitHooks/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/jschpp/PowershellGitHooks/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package description</description>
+    <releaseNotes>https://github.com/jschpp/PowershellGitHooks/releases</releaseNotes>
+    <copyright>Copyright 2018</copyright>
+    <tags>Git Hook</tags>
+  </metadata>
+</package>
